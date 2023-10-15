@@ -1,6 +1,8 @@
 package com.zidani.gestioncv.model;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,17 +22,24 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ApiModel(description = "Details about a person")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(value = "The unique ID of the person")
     private Long id;
+    @ApiModelProperty(value = "First name of the person")
     private String firstName;
+    @ApiModelProperty(value = "Last name of the person")
     private String lastName;
+    @ApiModelProperty(value = "Email address of the person")
     private String email;
+    @ApiModelProperty(value = "Website URL of the person")
     private String webSite;
+    @ApiModelProperty(value = "Date of birth of the person")
     private Date birthDay;
-    private String Password;
+    @ApiModelProperty(value = "Password of the person")
+    private String password;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cv_id")
     private CurriculumVitae curriculumVitae;
 }
