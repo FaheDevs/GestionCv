@@ -14,4 +14,5 @@ import java.util.Optional;
 public interface CurriculumVitaeRepository extends JpaRepository<CurriculumVitae, Long> {
     @Query("SELECT c FROM CurriculumVitae c WHERE c.person.email = :email")
     Optional<CurriculumVitae> findByPersonEmail(@Param("email") String email);
+    void deleteById(Long id);
 }
