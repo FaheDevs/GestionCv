@@ -14,17 +14,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Date;
 
 @Entity
-@ToString(exclude = "curriculumVitae")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -43,9 +38,7 @@ public class Person {
     @NotBlank(message = "email cannot be blank")
     @Email(message = "Invalid email format. The email should contain '@'.")
     private String email;
-
     private String webSite;
-
     private Date birthDay;
 
     @NotBlank(message = "Password cannot be blank")

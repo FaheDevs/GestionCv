@@ -1,9 +1,7 @@
 package com.zidani.gestioncv;
 
 import com.zidani.gestioncv.model.Experience;
-import com.zidani.gestioncv.model.Person;
 import com.zidani.gestioncv.repo.ExperienceRepository;
-import com.zidani.gestioncv.repo.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

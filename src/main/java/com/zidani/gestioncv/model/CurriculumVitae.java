@@ -25,10 +25,8 @@ public class CurriculumVitae {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @OneToOne(mappedBy = "curriculumVitae")
     private Person person;
-
     @OneToMany(mappedBy = "curriculumVitae", fetch = FetchType.EAGER)
     private List<Experience> experiences;
 }

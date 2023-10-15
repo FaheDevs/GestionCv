@@ -19,17 +19,11 @@ public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private int year;
-
     private String nature;
-
     private String title;
-
     private String description;
-
     private String website;
-
     @ManyToOne
     private CurriculumVitae curriculumVitae;
 }
