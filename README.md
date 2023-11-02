@@ -1,24 +1,61 @@
- # 1. Project Description
+ # 1. Gestion de CVs
 
-The data layer of this project is responsible for managing and persisting data related to CVs (Curriculum Vitae) and user information. This README provides till now an overview of the data layer, its structure, and the key components.
+Gérer à l'aide de la technologie JEE une liste de CVs. 
 
-# Project Objectives
 
-    Represent user data, including name, email, website, birthdate, and password.
-    Manage CVs with activities described by year, nature, title, description, and website.
-    Enable free access to user information and CVs.
-    Require authentication for CV modifications.
-    Support cooptation for creating new users.
-    Handle a large volume of CVs (approximately 100,000).
+## Tech Stack
 
-# HOW TO RUN : 
+**_UI:_** JSP, vueJS
+
+**_Backend:_** JEE
+
+
+## ROAD MAP 
+
+| STEP                                         | STATE |
+|----------------------------------------------|-------|
+| **STEP 1:** data layer                       | ✅     |
+| **STEP 2:** services (Spring/API-Rest/Junit) |       |
+| **STEP 3:** Authentification                 |       |
+| **STEP 4:** UI  (VueJS/Bootstrap)       |       |
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/FaheDevs/GestionCv.git
 ```
-git clone https://github.com/FaheDevs/GestionCv.git
-cd GestionCv
-git branch checkout feature/data-layer
-mvn clean install
-mvn test
+
+Go to the project directory
+
+```bash
+  cd GestionCv
 ```
 
-Authors
-@FaheDevs
+Install dependencies
+
+```bash
+  mvn clean install
+```
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  mvn test 
+```
+
+
+## Authors
+
+- [@FaheDevs](https://www.github.com/FaheDevs)
+
+
+## Used By
+
+This project is used by :
+
+- Aix-Marseille-University
