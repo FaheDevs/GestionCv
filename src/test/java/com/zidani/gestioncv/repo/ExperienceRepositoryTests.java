@@ -1,4 +1,4 @@
-package com.zidani.gestioncv;
+package com.zidani.gestioncv.repo;
 
 import com.zidani.gestioncv.model.Experience;
 import com.zidani.gestioncv.repo.ExperienceRepository;
