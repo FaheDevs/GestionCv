@@ -1,5 +1,7 @@
-package com.zidani.gestioncv.model;
+package com.zidani.gestioncv.curriculumVitaeManagment;
 
+import com.zidani.gestioncv.experienceManagment.Experience;
+import com.zidani.gestioncv.personManagment.Person;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

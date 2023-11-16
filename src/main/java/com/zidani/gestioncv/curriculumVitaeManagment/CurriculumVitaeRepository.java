@@ -1,6 +1,6 @@
-package com.zidani.gestioncv.repo;
+package com.zidani.gestioncv.curriculumVitaeManagment;
 
-import com.zidani.gestioncv.model.CurriculumVitae;
+import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

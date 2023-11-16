@@ -1,15 +1,17 @@
-package com.zidani.gestioncv.mapper.person;
+package com.zidani.gestioncv.personManagementTests;
 
-import com.zidani.gestioncv.dto.person.PersonRequest;
-import com.zidani.gestioncv.model.Person;
+import com.zidani.gestioncv.personManagment.Person;
+import com.zidani.gestioncv.personManagment.PersonRequest;
+import com.zidani.gestioncv.personManagment.PersonResponse;
+import com.zidani.gestioncv.personManagment.mapper.PersonMapper;
+import com.zidani.gestioncv.personManagment.mapper.PersonMapperImpl;
+import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
-
-public final class PersonCreator {
-    public PersonCreator() {
-    }
-
+@RequiredArgsConstructor
+public class PersonTestsUtils {
+    private static final PersonMapper personMapper = new PersonMapperImpl();
     public static PersonRequest createPersonRequest(String firstName,
                                                     String lastName,
                                                     String email){
@@ -18,7 +20,7 @@ public final class PersonCreator {
                 .lastName(lastName)
                 .email(email)
                 .webSite("https://www.example.com")
-                .birthDay(new Date(1999,8,03))
+                .birthDay(LocalDate.of(1999, 8, 3))
                 .password("password123")
                 .build();
     }
@@ -28,7 +30,7 @@ public final class PersonCreator {
                 .firstName("Alice")
                 .lastName("Johnson")
                 .webSite("aliceWebsite.com")
-                .birthDay(new Date(1995, 5, 15))
+                .birthDay(LocalDate.of(1995, 5, 15))
                 .email(email)
                 .password("alicePass")
                 .build();
@@ -39,7 +41,7 @@ public final class PersonCreator {
                 .firstName("Alice")
                 .lastName("Johnson")
                 .webSite("aliceWebsite.com")
-                .birthDay(new Date(1995, 5, 15))
+                .birthDay(LocalDate.of(1995, 5, 15))
                 .email("alice@example.com")
                 .password("alicePass")
                 .build();
@@ -47,7 +49,7 @@ public final class PersonCreator {
                 .firstName("Bob")
                 .lastName("Smith")
                 .webSite("bobWebsite.com")
-                .birthDay(new Date(1990, 8, 20))
+                .birthDay(LocalDate.of(1990, 8, 20))
                 .email("bob@example.com")
                 .password("bobPass")
                 .build();
@@ -56,7 +58,7 @@ public final class PersonCreator {
                 .firstName("Eve")
                 .lastName("Brown")
                 .webSite("eveWebsite.com")
-                .birthDay(new Date(1987, 3, 25))
+                .birthDay(LocalDate.of(1987, 3, 25))
                 .email("eve@example.com")
                 .password("evePass")
                 .build();
@@ -67,7 +69,7 @@ public final class PersonCreator {
         var person2 = Person.builder().firstName("John")
                 .lastName("Doe")
                 .webSite("johndoe.com")
-                .birthDay(new Date(1995, 5, 15))
+                .birthDay(LocalDate.of(1995, 5, 15))
                 .email("john.doe@example.com")
                 .password("secure123")
                 .build();
@@ -75,7 +77,7 @@ public final class PersonCreator {
         var person3 = Person.builder().firstName("Johanna")
                 .lastName("Smith")
                 .webSite("johannasmith.net")
-                .birthDay(new Date(1992, 8, 20))
+                .birthDay(LocalDate.of(1992, 8, 20))
                 .email("johanna.smith@gmail.com")
                 .password("mypassword")
                 .build();
@@ -83,7 +85,7 @@ public final class PersonCreator {
         var person4 = Person.builder().firstName("Johy")
                 .lastName("Walker")
                 .webSite("johywalker.org")
-                .birthDay(new Date(1990, 7, 3))
+                .birthDay(LocalDate.of(1990, 7, 3))
                 .email("johnny.walker@example.org")
                 .password("johnnyPass")
                 .build();
@@ -94,7 +96,7 @@ public final class PersonCreator {
         var person5 = Person.builder().firstName("Alice")
                 .lastName("Doe")
                 .webSite("alicedoe.com")
-                .birthDay(new Date(1993, 4, 28))
+                .birthDay(LocalDate.of(1993, 4, 28))
                 .email("alice.doe@example.com")
                 .password("alicePass")
                 .build();
@@ -102,7 +104,7 @@ public final class PersonCreator {
         var person6 = Person.builder().firstName("Robert")
                 .lastName("Doe")
                 .webSite("robertdoe.net")
-                .birthDay(new Date(1987, 9, 12))
+                .birthDay(LocalDate.of(1987, 9, 12))
                 .email("robert.doe@gmail.com")
                 .password("robertPass")
                 .build();
@@ -110,13 +112,28 @@ public final class PersonCreator {
         var person7 = Person.builder().firstName("Laura")
                 .lastName("Dorr")
                 .webSite("lauradoerr.org")
-                .birthDay(new Date(1991, 6, 5))
+                .birthDay(LocalDate.of(1991, 6, 5))
                 .email("laura.doerr@example.org")
                 .password("lauraPass")
                 .build();
 
 
         return List.of(person5, person6, person7);
+    }
+
+    public static Person createPersonFromPersonRequest(PersonRequest personRequest){
+        return personMapper.personRequestToPerson(personRequest);
+    }
+    public static PersonRequest createPersonRequestFromPerson(Person person) {
+        return personMapper.personToPersonRequest(person);
+    }
+
+    public static List<PersonResponse> personsResponseListFromPersonsList(List<Person> personList){
+        return  personList.stream().map(personMapper::personToPersonResponse).toList();
+    }
+
+    public static PersonResponse personsResponseFromPerson(Person person){
+        return  personMapper.personToPersonResponse(person);
     }
 
 }
