@@ -13,11 +13,11 @@ Gérer à l'aide de la technologie JEE une liste de CVs.
 ## ROAD MAP 
 
 | STEP                                         | STATE |
-|----------------------------------------------|-------|
-| **STEP 1:** data layer                       | ✅     |
-| **STEP 2:** services (Spring/API-Rest/Junit) |       |
-| **STEP 3:** Authentification                 |       |
-| **STEP 4:** UI  (VueJS/Bootstrap)       |       |
+|----------------------------------------------|---|
+| **STEP 1:** data layer                       | ✅ |
+| **STEP 2:** services (Spring/API-Rest/Junit) |   |
+| **STEP 3:** Authentification                 | ✅ |
+| **STEP 4:** UI  (VueJS/Bootstrap)       |   |
 
 
 ## Run Locally
