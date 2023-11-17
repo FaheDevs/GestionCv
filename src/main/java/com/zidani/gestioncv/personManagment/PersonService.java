@@ -48,8 +48,8 @@ public class PersonService {
     }
 
     public PersonResponse updatePersonDetails(PersonRequest updatedPerson){
-        var oldPerson = personRepository.findByEmail(updatedPerson.email());
         var newPerson = personMapper.personRequestToPerson(updatedPerson);
+        personRepository.save(newPerson);
 
         return personMapper.personToPersonResponse(newPerson);
     }

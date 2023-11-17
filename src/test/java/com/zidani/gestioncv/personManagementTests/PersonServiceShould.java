@@ -1,7 +1,6 @@
 package com.zidani.gestioncv.personManagementTests;
 
 import com.zidani.gestioncv.personManagment.*;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@Slf4j
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceShould {
 
@@ -108,7 +106,6 @@ public class PersonServiceShould {
         var actual = PersonTestsUtils.personsResponseFromPerson(oldPerson);
 
         when(personRepository.findByEmail("unique@email.com")).thenReturn(Optional.of(oldPerson));
-
         var expected = personService.updatePersonDetails(newPersonRequest);
 
         assertEquals(expected, actual);
