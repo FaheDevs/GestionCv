@@ -1,5 +1,6 @@
 package com.zidani.gestioncv.personManagment;
 
+import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
 import com.zidani.gestioncv.personManagment.Person;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;

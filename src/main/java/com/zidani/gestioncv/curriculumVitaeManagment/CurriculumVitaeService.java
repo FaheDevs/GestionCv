@@ -7,11 +7,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class CurriculumVitaeService {
     private final PersonRepository personRepository;
     private final CurriculumVitaeRepository curriculumVitaeRepository;
@@ -22,17 +23,22 @@ public class CurriculumVitaeService {
 
         var newCv = CurriculumVitae.builder()
                 .person(person)
+                .experiences(new ArrayList<>())
                 .build();
 
         var addedCv = curriculumVitaeRepository.save(newCv);
+        person.setCurriculumVitae(addedCv);
+        personRepository.save(person);
 
+        log.info("Created Curriculum Vitae with id {} for person with email: {}", addedCv.getId(), email);
         return addedCv.getId();
     }
 
     public void deleteCv(Long id) {
         var cvToDelete = curriculumVitaeRepository.findById(id)
                 .orElseThrow(() -> new CurriculumVitaeNotFoundException(id));
-        log.info("deleting cv with id {} , and the related to person with email : {}", id, cvToDelete.getPerson().getEmail());
+        log.info("Deleting Curriculum Vitae with id {} related to person with email: {}", id, cvToDelete.getPerson().getEmail());
         curriculumVitaeRepository.deleteById(id);
     }
 }
+

@@ -13,10 +13,10 @@ public interface PersonMapper {
     @Mapping(target = "email", source = "person.email")
     @Mapping(target = "webSite", source = "person.webSite")
     @Mapping(target = "birthDay", source = "person.birthDay")
+    @Mapping(target = "curriculumVitae", source = "person.curriculumVitae")
     PersonResponse personToPersonResponse(Person person);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "curriculumVitae", ignore = true)
     @Mapping(target = "role", ignore = true)
     Person personRequestToPerson(PersonRequest personRequest);
 

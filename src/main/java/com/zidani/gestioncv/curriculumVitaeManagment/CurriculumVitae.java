@@ -31,8 +31,8 @@ public class CurriculumVitae {
     public String toString() {
         return "CurriculumVitae{" +
                 "id=" + id +
-                  ", person=" + person.getId() +
-                  ", experiences=" + experiences.stream().map(Experience::getId).toList() +
+                  ", person=" + person.getEmail() +
+                  ", experiences=" + experiences.stream().map(Experience::getTitle).toList() +
                 '}';
     }
 }

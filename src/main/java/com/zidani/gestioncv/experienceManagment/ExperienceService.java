@@ -10,13 +10,12 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class ExperienceService {
     private final CurriculumVitaeRepository curriculumVitaeRepository;
     private final ExperienceMapper experienceMapper;
     private final ExperienceRepository experienceRepository;
-
 
     public Long addExperience(Long cvId, ExperienceRequest experienceRequest ) {
         var cv = curriculumVitaeRepository.findById(cvId)
@@ -27,6 +26,7 @@ public class ExperienceService {
         experienceRepository.save(newExperience);
         curriculumVitaeRepository.save(cv);
 
+        log.info("Added new experience with id {} to Curriculum Vitae with id {}", newExperience.getId(), cvId);
         return newExperience.getId();
     }
 
@@ -41,15 +41,17 @@ public class ExperienceService {
         oldExperience.setWebsite(experienceRequest.website());
 
         experienceRepository.save(oldExperience);
+        log.info("Updated experience with id {}", id);
         return oldExperience;
     }
 
     public void deleteExperience(Long id) {
         try {
             experienceRepository.deleteById(id);
-            log.info("deleted experience with id : {}", id);
+            log.info("Deleted experience with id : {}", id);
         } catch (EmptyResultDataAccessException ex) {
             throw new ExperienceNotFoundException(id);
         }
     }
 }
+

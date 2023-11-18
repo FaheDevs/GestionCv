@@ -1,5 +1,6 @@
 package com.zidani.gestioncv.personManagment;
 
+import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
 import com.zidani.gestioncv.personManagment.PersonRequest;
 import com.zidani.gestioncv.personManagment.PersonResponse;
 import com.zidani.gestioncv.personManagment.PersonService;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Tag(name = "Person", description = "Person Management Api")
 @RestController
-@RequestMapping("/api/v1/person")
+@RequestMapping("/api/v1/management/person")
 @RequiredArgsConstructor
 public class PersonController {
     private final PersonService personService;
@@ -88,5 +89,16 @@ public class PersonController {
     public ResponseEntity<PersonResponse> updatePersonDetails(@RequestBody PersonRequest updatedPerson) {
         PersonResponse updatedResponse = personService.updatePersonDetails(updatedPerson);
         return ResponseEntity.ok(updatedResponse);
+    }
+
+    @Operation(
+            summary = "get a persons cv",
+            description = "Endpoint to retrieve persons cv ."
+    )
+    @ApiResponse(responseCode = "200", description = "cv retrieved successfully")
+    @GetMapping("/cv")
+    public ResponseEntity<String> retrieveCv(@RequestParam String email) {
+        var cv = personService.getPersonCv(email);
+        return ResponseEntity.ok(cv.toString());
     }
 }

@@ -1,5 +1,6 @@
 package com.zidani.gestioncv.personManagementTests;
 
+import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
 import com.zidani.gestioncv.personManagment.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,25 +91,45 @@ public class PersonServiceShould {
 
     @Test
     void delete_person_by_email(){
-        var uniquePerson = PersonTestsUtils.createUniquePerson("unique@email.com");
+        String email = "unique@email.com";
+        var uniquePerson = PersonTestsUtils.createUniquePerson(email);
         var actual = PersonTestsUtils.personsResponseFromPerson(uniquePerson);
 
-        when(personRepository.deleteByEmail("unique@email.com")).thenReturn(uniquePerson);
-        var expected = personService.deletePerson("unique@email.com");
+        when(personRepository.deleteByEmail(email)).thenReturn(uniquePerson);
+        var expected = personService.deletePerson(email);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void update_person_details(){
-        var oldPerson = PersonTestsUtils.createUniquePerson("unique@email.com");
+        String email = "unique@email.com";
+        var oldPerson = PersonTestsUtils.createUniquePerson(email);
         oldPerson.setFirstName("fahed");
         var newPersonRequest = PersonTestsUtils.createPersonRequestFromPerson(oldPerson);
         var actual = PersonTestsUtils.personsResponseFromPerson(oldPerson);
 
-        when(personRepository.findByEmail("unique@email.com")).thenReturn(Optional.of(oldPerson));
+        when(personRepository.findByEmail(email)).thenReturn(Optional.of(oldPerson));
         var expected = personService.updatePersonDetails(newPersonRequest);
 
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void return_curriculum_vitae_given_person(){
+        String email = "unique@email.com";
+        var person = PersonTestsUtils.createUniquePerson(email);
+        var cv = CurriculumVitae.builder()
+                .person(person)
+                .experiences(new ArrayList<>())
+                .build();
+        person.setCurriculumVitae(cv);
+        var actual  = person.getCurriculumVitae();
+
+        when(personRepository.findByEmail(email)).thenReturn(Optional.of(person));
+        var expected = personService.getPersonCv(email);
+
+        verify(personRepository, times(1)).findByEmail(email);
         assertEquals(expected, actual);
     }
 }
