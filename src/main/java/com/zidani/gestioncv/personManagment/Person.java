@@ -2,7 +2,8 @@ package com.zidani.gestioncv.personManagment;
 
 
 import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
-import com.zidani.gestioncv.tokenManagement.Token;
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.Token;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Hidden
 public class Person implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,5 +75,20 @@ public class Person implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", webSite='" + webSite + '\'' +
+                ", birthDay=" + birthDay +
+                ", password='" + password + '\'' +
+                  ", curriculumVitae=" + curriculumVitae.getId() +
+                ", role=" + role +
+                '}';
     }
 }

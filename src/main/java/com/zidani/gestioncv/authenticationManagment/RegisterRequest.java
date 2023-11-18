@@ -1,4 +1,4 @@
-package com.zidani.gestioncv.auth;
+package com.zidani.gestioncv.authenticationManagment;
 
 import com.zidani.gestioncv.personManagment.Role;
 import lombok.AllArgsConstructor;

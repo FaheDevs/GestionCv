@@ -1,6 +1,6 @@
 package com.zidani.gestioncv.config;
 
-import com.zidani.gestioncv.tokenManagement.TokenRepository;
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

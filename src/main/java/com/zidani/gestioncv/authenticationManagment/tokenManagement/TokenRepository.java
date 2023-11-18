@@ -1,11 +1,13 @@
-package com.zidani.gestioncv.tokenManagement;
+package com.zidani.gestioncv.authenticationManagment.tokenManagement;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
 
+@Hidden
 public interface TokenRepository extends JpaRepository<Token, Long> {
 /**
  * retrieve a list of valid tokens associated with a specific Person based on the provided id.

@@ -48,25 +48,41 @@ public class ExperienceServiceShould {
 
         when(experienceRepository.save(experience)).thenReturn(experience);
         var expectedExperienceID = experienceService.addExperience(cv.getId(), experienceRequest);
+        experience.setTitle("newTitle");
 
         verify(experienceRepository, times(1)).save(experience);
         assertEquals(expectedExperienceID, actualId);
     }
 
-//    @Test TODO FINISH TESTING
-//    void update_experience_given_experience_id(){
-//        var person = PersonTestsUtils.createUniquePerson("unique@email.com");
-//        var cv = CurriculumVitae.builder()
-//                .person(person)
-//                .experiences(new ArrayList<>())
-//                .build();
-//        var oldExperience = ExperienceTestsUtils.createExperience(cv);
-//        oldExperience.setTitle("newTitle");
-//
-//        experienceService.updateExperience(id, experienceRequest)
-//
-//        verify(experienceRepository, times(1)).save(oldExperience);
-//
-//    }
+    @Test
+    void update_experience_given_experience_id(){
+        var actual = setupExperience();
+        when(experienceRepository.findById(actual.getId())).thenReturn(Optional.of(actual));
+        var experienceRequest = ExperienceTestsUtils.createExperienceRequest();
+        actual.setTitle(experienceRequest.title());
+
+        var expected = experienceService.updateExperience(actual.getId(), experienceRequest);
+
+        verify(experienceRepository, times(1)).save(actual);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void delete_experience_given_experience_id(){
+        var actual = setupExperience();
+
+        experienceService.deleteExperience(actual.getId());
+
+        verify(experienceRepository, times(1)).deleteById(actual.getId());
+    }
+
+    private static Experience setupExperience() {
+        var person = PersonTestsUtils.createUniquePerson("unique@email.com");
+        var cv = CurriculumVitae.builder()
+                .person(person)
+                .experiences(new ArrayList<>())
+                .build();
+        return ExperienceTestsUtils.createExperience(cv);
+    }
 
 }

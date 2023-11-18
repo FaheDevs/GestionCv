@@ -1,6 +1,6 @@
 package com.zidani.gestioncv.config;
 
-import com.zidani.gestioncv.tokenManagement.TokenRepository;
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

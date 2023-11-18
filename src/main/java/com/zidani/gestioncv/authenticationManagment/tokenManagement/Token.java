@@ -1,6 +1,7 @@
-package com.zidani.gestioncv.tokenManagement;
+package com.zidani.gestioncv.authenticationManagment.tokenManagement;
 
 import com.zidani.gestioncv.personManagment.Person;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Hidden
 public class Token {
 
   @Id

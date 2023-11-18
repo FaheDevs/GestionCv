@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ExperienceRequest(
+        Long id,
         int year,
         String nature,
         String title,

@@ -1,4 +1,4 @@
-package com.zidani.gestioncv.auth;
+package com.zidani.gestioncv.authenticationManagment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

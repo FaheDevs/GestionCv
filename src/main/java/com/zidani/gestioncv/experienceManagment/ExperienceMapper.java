@@ -7,7 +7,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ExperienceMapper {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "curriculumVitae", ignore = true)
     Experience experienceRequestToExperience(ExperienceRequest experienceRequest);
 }

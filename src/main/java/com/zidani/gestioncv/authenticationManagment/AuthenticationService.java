@@ -1,13 +1,13 @@
-package com.zidani.gestioncv.auth;
+package com.zidani.gestioncv.authenticationManagment;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zidani.gestioncv.config.JwtService;
 import com.zidani.gestioncv.personManagment.Person;
 import com.zidani.gestioncv.personManagment.PersonRepository;
-import com.zidani.gestioncv.tokenManagement.Token;
-import com.zidani.gestioncv.tokenManagement.TokenRepository;
-import com.zidani.gestioncv.tokenManagement.TokenType;
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.Token;
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.TokenRepository;
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

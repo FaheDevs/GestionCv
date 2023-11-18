@@ -11,9 +11,10 @@ public final class ExperienceTestsUtils {
 
     public static ExperienceRequest createExperienceRequest(){
         return ExperienceRequest.builder()
+                .id(1L)
                 .year(2022)
                 .nature("Work")
-                .title("Software Engineer")
+                .title("newTitle")
                 .description("Developed and maintained software applications.")
                 .website("https://www.example.com")
                 .build();
@@ -21,6 +22,7 @@ public final class ExperienceTestsUtils {
 
     public static Experience createExperience(CurriculumVitae cv){
         return Experience.builder()
+                .id(1L)
                 .curriculumVitae(cv)
                 .year(2022)
                 .nature("Work")

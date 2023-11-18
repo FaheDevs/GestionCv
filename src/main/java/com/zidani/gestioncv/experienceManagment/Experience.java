@@ -1,6 +1,7 @@
 package com.zidani.gestioncv.experienceManagment;
 
 import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @Data
+@Hidden
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +28,17 @@ public class Experience {
     private String website;
     @ManyToOne
     private CurriculumVitae curriculumVitae;
+
+    @Override
+    public String toString() {
+        return "Experience{" +
+                "id=" + id +
+                ", year=" + year +
+                ", nature='" + nature + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", website='" + website + '\'' +
+                ", curriculumVitae=" + curriculumVitae.getId() +
+                '}';
+    }
 }
