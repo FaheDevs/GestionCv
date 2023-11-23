@@ -7,6 +7,8 @@ import com.zidani.gestioncv.personManagment.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ import static com.zidani.gestioncv.personManagment.Role.ADMIN;
 import static com.zidani.gestioncv.personManagment.Role.MANAGER;
 
 @SpringBootApplication
-public class GestionCvApplication {
+public class GestionCvApplication  {
 
     public static void main(String[] args) {
         SpringApplication.run(GestionCvApplication.class, args);
