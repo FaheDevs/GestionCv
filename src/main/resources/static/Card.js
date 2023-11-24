@@ -1,4 +1,5 @@
-Vue.component('card', {
+
+export const Card =Vue.component('card', {
     props: ['value'],
     template: `
   <div class="card mb-3">

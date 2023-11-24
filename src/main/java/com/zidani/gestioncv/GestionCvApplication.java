@@ -11,8 +11,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDate;
-import java.util.Date;
 
 import static com.zidani.gestioncv.personManagment.Role.ADMIN;
 import static com.zidani.gestioncv.personManagment.Role.MANAGER;

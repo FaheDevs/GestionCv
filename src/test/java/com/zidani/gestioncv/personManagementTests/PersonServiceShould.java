@@ -132,4 +132,17 @@ public class PersonServiceShould {
         verify(personRepository, times(1)).findByEmail(email);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void retrieve_person_given_email(){
+        var person = PersonTestsUtils.createUniquePerson("fahed@gmail.com");
+        when(personRepository.findByEmail("fahed@gmail.com")).thenReturn(Optional.ofNullable(person));
+        var personResponse = PersonTestsUtils.personsResponseFromPerson(person);
+
+        var expected = personService.getPersonDetails("fahed@gmail.com");
+
+        verify(personRepository, times(1)).findByEmail("fahed@gmail.com");
+        assertEquals(expected, personResponse);
+
+    }
 }

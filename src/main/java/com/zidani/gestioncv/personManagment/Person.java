@@ -36,7 +36,7 @@ public class Person implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "curriculumVitae_id", referencedColumnName = "id")
-    private CurriculumVitae curriculumVitae;
+    private CurriculumVitae curriculumVitae ;
     @Enumerated(EnumType.STRING)
     private Role role;
 

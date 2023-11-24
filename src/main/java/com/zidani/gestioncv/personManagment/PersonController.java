@@ -103,4 +103,15 @@ public class PersonController {
         var cv = personService.getPersonCv(email);
         return ResponseEntity.ok(cv.toString());
     }
+
+    @Operation(
+            summary = "get a person details",
+            description = "Endpoint to retrieve persons details ."
+    )
+    @ApiResponse(responseCode = "200", description = "person details retrieved successfully")
+    @GetMapping("/details")
+    public ResponseEntity<PersonResponse> retrievePersonDetails(@RequestParam String email) {
+        var person = personService.getPersonDetails(email);
+        return ResponseEntity.ok(person);
+    }
 }

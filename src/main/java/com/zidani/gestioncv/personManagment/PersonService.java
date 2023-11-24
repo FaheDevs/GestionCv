@@ -74,5 +74,12 @@ public class PersonService {
         log.info("retrieving {} cv from the database, the cv :  \n  {} ", email, person.getCurriculumVitae());
         return person.getCurriculumVitae();
     }
+
+    public PersonResponse getPersonDetails(String email) {
+       var retrievedPerson = personRepository.findByEmail(email)
+                .orElseThrow(() -> new PersonNotFoundException(email));
+
+       return personMapper.personToPersonResponse(retrievedPerson);
+    }
 }
 

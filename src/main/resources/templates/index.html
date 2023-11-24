@@ -22,76 +22,39 @@
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="./../static/login.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
 
 <div id="main">
-    <navbar></navbar>
-    <div id="contents-main">
-        <div id="contents" class="d-flex flex-column justify-content-center align-self-center mt-5 mx-5 border rounded p-5" style="border-color: grey;">
-            <div class="d-flex flex-column justify-content-center align-self-center mb-3" >
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="filter by name" aria-label="Search" v-model="searchText" style="width: 600px;">
-                </form>
-            </div>
-
-            <ul>
-                <li style="list-style-type:none" v-for="value in filteredValues">
-                   <card v-bind:value="value"></card>
-                    <br>
-                    <br>
-                </li>
-            </ul>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Post ID</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Body</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="item in items" :key="item.id">
-                    <th scope="row">{{ item.postId }}</th>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.body }}</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                        <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(currentPage - 1)">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item" v-for="page in Math.ceil(totalItems / perPage)" :key="page" :class="{ active: currentPage === page }">
-                        <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-                    </li>
-                    <li class="page-item" :class="{ disabled: currentPage === Math.ceil(totalItems / perPage) }">
-                        <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(currentPage + 1)">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <template v-if="currentPath !== '#/login' && currentPath !== '#/dashboard'">
+        <navbar :is-logged-in="isLoggedIn" :person="personDetails"></navbar>
+    </template>
+    <component :is="currentView" @is-logged-in="handleLoggingSuccess" :person="personDetails" @send-email="handlePersonEmail" v-if="currentView !== null">
+        <!-- Pass the userData prop only to the Dashboard component -->
+        <template v-if="currentView === '#/dashboard'">
+            <component></component>
+        </template>
+        <!-- Do not pass the userData prop to other components -->
+        <template v-else>
+            <component></component>
+        </template>
+    </component>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 
-<script src="../static/Card.js" type="text/babel"></script>
-<script src="../static/Navigation.js" type="text/babel"></script>
-<script src="../static/app.js" type="text/babel"></script>
+<script src="../static/Card.js" type="module"></script>
+<script src="../static/Navigation.js"  type="module"></script>
+<script src="../static/index.js" type="module"></script>
+<script src="../static/home.js" type="module"></script>
+<script src="../static/Signin.js" type="module"></script>
+<script src="../static/dashboard.js" type="module"></script>
+
 </body>
 </html>
