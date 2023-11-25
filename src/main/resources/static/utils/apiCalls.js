@@ -31,3 +31,37 @@ export async function  retrievePersonDetails(email) {
         // Handle the error (e.g., show an error message to the user)
     }
 }
+
+export async function createCV(email) {
+    const apiUrl = `/api/v1/cvs/create?email=${encodeURIComponent(email)}`;
+
+    const bearerToken = localStorage.getItem('authToken');
+
+    if (!bearerToken) {
+        throw new Error('Bearer token not found in local storage');
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearerToken}`, // Include your auth token here
+            },
+            body: JSON.stringify({ email }),
+        });
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        const cvId = await response.json();
+        return cvId;
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to create CV');
+    }
+}

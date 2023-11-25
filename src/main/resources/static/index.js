@@ -20,35 +20,37 @@ var index = new Vue({
         currentComponent: null,
         isLoggedIn:false,
         personEmail:'',
-        personDetails:null
+        personDetails:null,
+        reload:false
     },
-    // watch: {
-    //     currentRoute: 'handleRouteChange'
-    // },
     methods: {
-        // handleRouteChange() {
-        //     this.currentComponent = routes[this.currentRoute] || NotFound;
-        // },
         handleLoggingSuccess(isLoggedIn){
             this.isLoggedIn = isLoggedIn;
-
             console.log('isLoggedIn:', isLoggedIn);
-            // retrievePersonDetails(email).then(personDetails => {
-            //     this.personDetails = personDetails;
-            // }).catch(error => {
-            //     console.error('Error retrieving person details:', error.message);
-            // });
-
         },
         async handlePersonEmail(email) {
             this.personEmail = email;
-
-            // retrievePersonDetails(email).then(personDetails => {
-            //     this.personDetails = personDetails;
-            // }).catch(error => {
-            //     console.error('Error retrieving person details:', error.message);
-            // });
             this.personDetails=await retrievePersonDetails(email);
+        },
+         checkLoginStatus() {
+            if (this.isLoggedIn) {
+                this.currentPath = '/dashboard';
+            } else {
+                this.currentPath = '/';
+            }
+        },
+        handleRouteChange() {
+            // If the user manually changes the URL to /dashboard but is not logged in, redirect to /
+            if (this.currentPath === '#/dashboard' && !this.isLoggedIn) {
+                window.location.hash = '/';
+                const errorMessage = 'You are not logged in. Redirected to the home page.'
+                alert(errorMessage.toUpperCase());
+            }
+        },
+        async handleReloadPersonDetails(reload) {
+            this.reload = reload;
+            this.personDetails = await retrievePersonDetails(this.personEmail);
+            console.log(this.personDetails)
         }
     },
     computed: {
@@ -58,13 +60,12 @@ var index = new Vue({
     },
     mounted() {
         window.addEventListener('hashchange', () => {
-            this.currentPath = window.location.hash
-        })
+            this.currentPath = window.location.hash;
+            this.handleRouteChange();
+        });
 
-        console.log("********",this.currentPath)
+        // Check login status on page load
+        this.checkLoginStatus();
+        this.handleRouteChange();
     }
 });
-
-// window.addEventListener('hashchange', () => {
-//     index.currentRoute = window.location.pathname;
-// });

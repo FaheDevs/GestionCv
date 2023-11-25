@@ -1,6 +1,6 @@
 
 Vue.component('navbar', {
-    props:["isLoggedIn", "person"],
+    props:["person"],
     template: `
     <header class="p-3 text-bg-dark">
     <div class="container-fluid">
@@ -18,6 +18,9 @@ Vue.component('navbar', {
             <template v-if="isLoggedIn">
               <!-- Content to display when the user is logged in -->
               <span class="text-white fs-4 me-2">Welcome, {{ person.firstName }}</span>
+                      <a type="button" class="btn btn-outline-secondary" href="#/dashboard">
+                       <i class="bi bi-person-vcard-fill"></i>
+                        </button>
             </template>
             <template v-else>
               <!-- Content to display when the user is not logged in -->

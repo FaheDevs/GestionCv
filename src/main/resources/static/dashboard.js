@@ -1,5 +1,9 @@
+import {ExperienceList} from "./experienceList.js";
+import {PersonDetails} from "./personDetails.js";
+import {AddCv} from "./addCv.js";
+
 export const Dashboard = Vue.component('dashboard', {
-    props: ['person'],
+    props: ['dashp'],
     template: `
 <div>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -20,7 +24,7 @@ export const Dashboard = Vue.component('dashboard', {
   </symbol>
 </svg>
   <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">{{person.firstName}}</a>
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">{{dashp.firstName}}</a>
        
     
       
@@ -66,10 +70,31 @@ export const Dashboard = Vue.component('dashboard', {
                 
                                     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                                       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                                        <h1 class="h2">Dashboard</h1>
+                                        <h1 class="h2">Dashboard  </h1>
+                                      <h2>
+                                      <span class="badge bg-info text-dark">{{dashp.curriculumVitae !== null ? '1 ' : '0 ' }}CV</span>  
+                                      <span class="badge bg-warning text-dark">{{ dashp.curriculumVitae !== null ? dashp.curriculumVitae.experiences.length : '0 ' }} EXPERIENCES</span>
+                                      </h2>
                                       </div>
-                                      <h4>{{person.firstName + '' + person.lastName}}</h4>
-                                      
+                                      <h4>{{dashp.firstName + ' - ' + dashp.lastName}}</h4>
+                                      <br>
+                                      <br>
+                                        <div v-if="isCvAdded" >
+                                           <p class="fw-lighter fs-5">Personal Information</p>
+                                          <hr class="my-3">
+                                        
+                                            <div class="d-flex flex-column justify-content-start">
+                                                    <person-details :person="dashp"></person-details>
+                                            </div>
+                                             <p class="fw-lighter fs-5">EXPERIENCES</p>
+                                          <hr class="my-3">
+                                          <div class="d-flex flex-column justify-content-start">
+                                                    <experience-list></experience-list>
+                                            </div>
+                                        </div>
+                                            <div v-else >
+                                                <add-cv @is-cv-added="handleCvAdded" :addcvp="dashp"></add-cv>
+                                            </div>
                                     </main>
                   </div>
     </div>
@@ -80,12 +105,21 @@ export const Dashboard = Vue.component('dashboard', {
   `,
     data() {
         return {
+            isCvAdded:false,
         };
+    } ,
+    components: {
+        'experience-list': ExperienceList,
+        'person-details': PersonDetails,
+        'add-cv': AddCv
     },
     methods: {
-
-
-    }
+        handleCvAdded(isCvAdded) {
+            this.isCvAdded = isCvAdded;
+            this.$emit('reload-person-details', true);
+            console.log('isLoggedIn:', isCvAdded);
+        },
+    },
 });
 
 

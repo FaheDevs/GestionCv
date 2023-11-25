@@ -30,12 +30,12 @@
 
 <div id="main">
     <template v-if="currentPath !== '#/login' && currentPath !== '#/dashboard'">
-        <navbar :is-logged-in="isLoggedIn" :person="personDetails"></navbar>
+        <navbar :person="personDetails"></navbar>
     </template>
-    <component :is="currentView" @is-logged-in="handleLoggingSuccess" :person="personDetails" @send-email="handlePersonEmail" v-if="currentView !== null">
+    <component :is="currentView" @is-logged-in="handleLoggingSuccess" :dashp="personDetails" @send-email="handlePersonEmail" @reload-person-details="handleReloadPersonDetails"  v-if="currentView !== null">
         <!-- Pass the userData prop only to the Dashboard component -->
         <template v-if="currentView === '#/dashboard'">
-            <component></component>
+            <component ></component>
         </template>
         <!-- Do not pass the userData prop to other components -->
         <template v-else>
@@ -55,6 +55,9 @@
 <script src="../static/home.js" type="module"></script>
 <script src="../static/Signin.js" type="module"></script>
 <script src="../static/dashboard.js" type="module"></script>
+<script src="../static/experienceList.js" type="module"></script>
+<script src="../static/personDetails.js" type="module"></script>
+<script src="../static/addCv.js" type="module"></script>
 
 </body>
 </html>

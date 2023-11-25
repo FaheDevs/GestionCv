@@ -12,6 +12,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 
 
+import java.time.LocalDate;
+
 import static com.zidani.gestioncv.personManagment.Role.ADMIN;
 import static com.zidani.gestioncv.personManagment.Role.MANAGER;
 
@@ -26,6 +28,14 @@ public class GestionCvApplication  {
             AuthenticationService service
     ){
         return args -> {
+            var fahed = RegisterRequest.builder()
+                    .firstname("fahed")
+                    .lastname("zidani")
+                    .email("fahed@mail.com")
+                    .password("fahed")
+                    .role(ADMIN)
+                    .build();
+            service.register(fahed);
             var admin = RegisterRequest.builder()
                     .firstname("Admin")
                     .lastname("Admin")

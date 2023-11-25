@@ -65,7 +65,7 @@ export const login = Vue.component('login', {
                     this.showAlert = false;
                 }, 5000);
 
-                window.location.href='#/dashboard'
+                window.location.href='#/'
 
             } catch (error) {
                 // console.error('Error during authentication:', error.message);
