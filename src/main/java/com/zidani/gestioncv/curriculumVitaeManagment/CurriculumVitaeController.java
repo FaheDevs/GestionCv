@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @Tag(name = "CurriculumVitae", description = "CurriculumVitae Management Api")
 @RestController
-@RequestMapping("/api/v1/cvs")
+@RequestMapping("/api/v1/management/cvs")
 @RequiredArgsConstructor
 public class CurriculumVitaeController {
     private final CurriculumVitaeService curriculumVitaeService;

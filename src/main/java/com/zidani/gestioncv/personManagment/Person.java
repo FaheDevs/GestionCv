@@ -1,6 +1,7 @@
 package com.zidani.gestioncv.personManagment;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
 import com.zidani.gestioncv.authenticationManagment.tokenManagement.Token;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -33,13 +34,14 @@ public class Person implements UserDetails {
     private String webSite;
     private LocalDate birthDay;
     private String password;
-
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "curriculumVitae_id", referencedColumnName = "id")
     private CurriculumVitae curriculumVitae ;
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "person")
     private List<Token> tokens;
 

@@ -61,11 +61,17 @@ public class PersonService {
     }
 
     public PersonResponse updatePersonDetails(PersonRequest updatedPerson){
-        var newPerson = personMapper.personRequestToPerson(updatedPerson);
-        personRepository.save(newPerson);
+        var oldPerson = personRepository.findByEmail(updatedPerson.email())
+                .orElseThrow(() -> new PersonNotFoundException(updatedPerson.email()));
+        oldPerson.setFirstName(updatedPerson.firstName());
+        oldPerson.setLastName(updatedPerson.lastName());
+        oldPerson.setBirthDay(updatedPerson.birthDay());
+        oldPerson.setWebSite(updatedPerson.webSite());
+
+        personRepository.save(oldPerson);
         log.info("Updated details for person with email '{}'", updatedPerson.email());
 
-        return personMapper.personToPersonResponse(newPerson);
+        return personMapper.personToPersonResponse(oldPerson);
     }
 
     public CurriculumVitae getPersonCv(String email){

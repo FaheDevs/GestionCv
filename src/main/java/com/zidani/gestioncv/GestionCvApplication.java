@@ -32,6 +32,8 @@ public class GestionCvApplication  {
                     .firstname("fahed")
                     .lastname("zidani")
                     .email("fahed@mail.com")
+                    .birthDay(LocalDate.of(1999,8,3))
+                    .webSite("fahed.com")
                     .password("fahed")
                     .role(ADMIN)
                     .build();

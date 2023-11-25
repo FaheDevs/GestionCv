@@ -1,5 +1,6 @@
 package com.zidani.gestioncv.experienceManagment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
@@ -26,6 +27,7 @@ public class Experience {
     private String title;
     private String description;
     private String website;
+    @JsonIgnore
     @ManyToOne
     private CurriculumVitae curriculumVitae;
 

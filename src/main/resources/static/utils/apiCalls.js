@@ -33,7 +33,7 @@ export async function  retrievePersonDetails(email) {
 }
 
 export async function createCV(email) {
-    const apiUrl = `/api/v1/cvs/create?email=${encodeURIComponent(email)}`;
+    const apiUrl = `/api/v1/management/cvs/create?email=${encodeURIComponent(email)}`;
 
     const bearerToken = localStorage.getItem('authToken');
 
@@ -64,4 +64,144 @@ export async function createCV(email) {
         console.error('Fetch error:', error.message);
         throw new Error('Failed to create CV');
     }
+}
+
+export async function updatePersonDetails(updatedPersonData){
+    const apiUrl = `/api/v1/management/person/update`;
+
+    const bearerToken = localStorage.getItem('authToken');
+
+    if (!bearerToken) {
+        throw new Error('Bearer token not found in local storage');
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearerToken}`, // Include your auth token here
+            },
+            body: JSON.stringify(updatedPersonData)
+        });
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to update person');
+    }
+
+}
+
+export async function addExperience(cvId,newExperience){
+    const apiUrl = `/api/v1/experiences/${cvId}`;
+
+    const bearerToken = localStorage.getItem('authToken');
+
+    if (!bearerToken) {
+        throw new Error('Bearer token not found in local storage');
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearerToken}`,
+            },
+            body: JSON.stringify(newExperience)
+        });
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to add experience');
+    }
+
+}
+
+export async function updateExperienceDetails(experienceID, updatedExperienceData){
+    const apiUrl = `/api/v1/experiences/${experienceID}`;
+
+    const bearerToken = localStorage.getItem('authToken');
+
+    if (!bearerToken) {
+        throw new Error('Bearer token not found in local storage');
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearerToken}`,
+            },
+            body: JSON.stringify(updatedExperienceData)
+        });
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to update experience');
+    }
+
+}
+
+export async function deleteExperience(experienceID){
+    const apiUrl = `/api/v1/experiences/${experienceID}`;
+
+    const bearerToken = localStorage.getItem('authToken');
+
+    if (!bearerToken) {
+        throw new Error('Bearer token not found in local storage');
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearerToken}`,
+            },
+        });
+
+        if (response.status === 204) {
+            // No content, return null or some other indicator
+            return null;
+        }
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to delete experience');
+    }
+
 }

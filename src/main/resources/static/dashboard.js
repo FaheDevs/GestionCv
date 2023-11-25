@@ -79,17 +79,17 @@ export const Dashboard = Vue.component('dashboard', {
                                       <h4>{{dashp.firstName + ' - ' + dashp.lastName}}</h4>
                                       <br>
                                       <br>
-                                        <div v-if="isCvAdded" >
+                                        <div v-if="isCvAdded || dashp.curriculumVitae !== null" >
                                            <p class="fw-lighter fs-5">Personal Information</p>
                                           <hr class="my-3">
                                         
                                             <div class="d-flex flex-column justify-content-start">
-                                                    <person-details :person="dashp"></person-details>
+                                                    <person-details :person="dashp" @person-update="handlePersonUpdate"></person-details>
                                             </div>
                                              <p class="fw-lighter fs-5">EXPERIENCES</p>
                                           <hr class="my-3">
                                           <div class="d-flex flex-column justify-content-start">
-                                                    <experience-list></experience-list>
+                                                    <experience-list :experiencep="dashp" @experience-add="handleExperienceUpdates" @experience-update="handleExperienceUpdates" @experience-delete="handleExperienceUpdates"></experience-list>
                                             </div>
                                         </div>
                                             <div v-else >
@@ -118,6 +118,14 @@ export const Dashboard = Vue.component('dashboard', {
             this.isCvAdded = isCvAdded;
             this.$emit('reload-person-details', true);
             console.log('isLoggedIn:', isCvAdded);
+        },
+        handlePersonUpdate(isUpdateDone) {
+            this.$emit('reload-person-details', isUpdateDone);
+            console.log('isLoggedIn:', isUpdateDone);
+        },
+        handleExperienceUpdates(isExperienceAddDone) {
+            this.$emit('reload-person-details', isExperienceAddDone);
+            console.log('is Experience added / updated / Deleted done:', isExperienceAddDone);
         },
     },
 });
