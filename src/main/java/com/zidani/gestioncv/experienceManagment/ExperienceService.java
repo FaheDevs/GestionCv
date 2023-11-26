@@ -3,6 +3,7 @@ package com.zidani.gestioncv.experienceManagment;
 import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitaeRepository;
 import com.zidani.gestioncv.curriculumVitaeManagment.Exceptions.CurriculumVitaeNotFoundException;
 import com.zidani.gestioncv.experienceManagment.Exceptions.ExperienceNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,7 +17,7 @@ public class ExperienceService {
     private final CurriculumVitaeRepository curriculumVitaeRepository;
     private final ExperienceMapper experienceMapper;
     private final ExperienceRepository experienceRepository;
-
+    @Transactional
     public Long addExperience(Long cvId, ExperienceRequest experienceRequest ) {
         var cv = curriculumVitaeRepository.findById(cvId)
                 .orElseThrow(() -> new CurriculumVitaeNotFoundException(cvId));

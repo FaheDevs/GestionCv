@@ -1,4 +1,5 @@
 import {Card} from "./Card.js";
+import {getAll} from "./utils/apiCalls.js";
 
 export const Home=  Vue.component('home', {
     props: ['value'],
@@ -11,18 +12,15 @@ export const Home=  Vue.component('home', {
                 <i class="bi bi-search"></i>
             </form>
         </div>
-
-        <ul>
+        <div class="main-cards" ref="mainCards">
+         <ul>
             <li style="list-style-type:none" v-for="item in filteredValues" :key="item.id">
-                <card :value="item"></card>
+                <card @show-cv="onShowCv" :value="item"></card>
                 <br>
                 <br>
             </li>
         </ul>
-
-       
-
-       
+        </div>
     </div>
 </div>
   `,
@@ -31,20 +29,7 @@ export const Home=  Vue.component('home', {
     },
     data() {
         return {
-            players: [
-                { id: "1", name: "Lionel Messi", description: "Argentina's superstar" },
-                { id: "2", name: "Christiano Ronaldo", description: "Portugal top-ranked player" }
-            ],
-            values: [
-                { id: "1", fullName: "Lionel", text: "Argentina's superstar" },
-                { id: "2", fullName: "test", text: "Argentina's superstar" },
-                { id: "3", fullName: "ey", text: "Argentina's superstar" },
-                { id: "4", fullName: "wesg", text: "Argentina's superstar" },
-            ],
-            items: [],
-            currentPage: 1,
-            perPage: 2,
-            totalItems: 0,
+            values: [],
             searchText: '',
         };
     },
@@ -52,29 +37,28 @@ export const Home=  Vue.component('home', {
         this.fetchData().catch(error => {
             console.error(error);
         });
+        this.$refs.mainCards.scrollTop = this.$refs.mainCards.scrollHeight;
+
     },
     methods: {
-        async fetchData() {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/comments?_page=${this.currentPage}&_limit=${this.perPage}`);
-            this.totalItems = parseInt(res.headers.get('x-total-count'), 10);
-            this.items = await res.json();
-        },
-        changePage(page) {
-            if (page >= 1 && page <= Math.ceil(this.totalItems / this.perPage)) {
-                this.currentPage = page;
-                this.fetchData().catch(error => {
-                    console.error(error);
-                });
-            }
-        },
+        onShowCv(data){
+
+            this.$emit('load-cv-view-data', data);
+
+        }
+
     },
     computed: {
         filteredValues() {
             const searchText = this.searchText.toLowerCase();
             return this.values.filter(value =>
-                value.fullName.toLowerCase().includes(searchText) ||
-                value.text.toLowerCase().includes(searchText)
+                value.firstName.toLowerCase().includes(searchText) ||
+                value.lastName.toLowerCase().includes(searchText)
             );
         }
+    },
+    async created() {
+        var list = await getAll()
+        this.values = list;
     }
 });

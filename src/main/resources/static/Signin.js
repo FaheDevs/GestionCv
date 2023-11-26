@@ -16,7 +16,7 @@ export const login = Vue.component('login', {
         </div>
                 <button class="btn btn-primary w-100 py-2" type="submit" >Sign in</button>
         <div class="mt-3">
-            <a href="#" class="text-decoration-none">Forgot Password?</a>
+            <a href="#/" class="btn btn-link">Cancel</a>
         </div>
       </form>
       

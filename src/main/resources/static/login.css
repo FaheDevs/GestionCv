@@ -95,6 +95,10 @@
     height: 300px; /* Adjust the height as needed */
     margin-right: 20px;
 }
+.main-cards{
+    overflow-y: auto;
+
+}
 
 .experience-card {
     border: 1px solid rgb(76, 94, 70);
@@ -119,4 +123,35 @@
     position: absolute;
     top: 10px;
     right: 65px;
+}
+
+.cv-view-container {
+    margin: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+.section-header {
+    font-weight: bold;
+    color: grey;
+}
+
+.section-divider {
+    border-top: 1px solid grey;
+}
+
+.personal-info {
+    font-size: 16px;
+    /* Adjust the font size as needed */
+}
+
+.experience-info {
+    font-size: 14px;
+    /* Adjust the font size as needed */
+}
+
+.experience-divider {
+    border-top: 1px solid #46585e;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

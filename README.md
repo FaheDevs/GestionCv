@@ -5,7 +5,7 @@ Gérer à l'aide de la technologie JEE une liste de CVs.
 
 ## Tech Stack
 
-**_UI:_** JSP, vueJS
+**_UI:_** thymleaf, vueJS
 
 **_Backend:_** JEE
 
@@ -17,7 +17,7 @@ Gérer à l'aide de la technologie JEE une liste de CVs.
 | **STEP 1:** data layer                       | ✅ |
 | **STEP 2:** services (Spring/API-Rest/Junit) |  ✅ |
 | **STEP 3:** Authentification                 | ✅ |
-| **STEP 4:** UI  (VueJS/Bootstrap)       |   |
+| **STEP 4:** UI  (VueJS/Bootstrap/thymleaf)   |  ✅  |
 
 
 ## Run Locally

@@ -3,6 +3,8 @@ import {login} from "./Signin.js";
 import {Dashboard} from "./dashboard.js";
 import {retrievePersonDetails} from "./utils/apiCalls.js";
 import {AddPerson} from "./AddPerson.js";
+import {CvView} from "./CvView.js";
+import {Register} from "./register.js";
 
 const NotFound = { template: '<p>Page not found</p>' }
 
@@ -12,7 +14,10 @@ const routes = {
     '/': Home,
     '/login': login,
     '/dashboard': Dashboard,
-    '/addPerson': AddPerson
+    '/addPerson': AddPerson,
+    '/cvView': CvView,
+    '/register': Register
+
 }
 var index = new Vue({
     el: '#main',
@@ -23,7 +28,8 @@ var index = new Vue({
         isLoggedIn:false,
         personEmail:'',
         personDetails:null,
-        reload:false
+        reload:false,
+        cvViewData:null
     },
     methods: {
         handleLoggingSuccess(isLoggedIn){
@@ -56,6 +62,10 @@ var index = new Vue({
         },
         handleLogout(loggedOut){
             this.isLoggedIn=loggedOut;
+        },
+        handleLoadingCvViewData(data){
+        this.cvViewData=data;
+            window.location.href='#/cvView'
         }
     },
     computed: {
