@@ -27,7 +27,7 @@ export const ExperienceList = Vue.component('experience-list', {
     </div>
   </div>
    <!-- Add modification form -->
-    <div v-if="showAddForm" class="experience-form">
+    <div v-if="showAddForm">
      <add-experience :addexperiencep="experiencep" @on-cancel="cancelForm" @on-save="handleExperienceSave"></add-experience>
     </div>
     <div v-if="showModifyForm" class="experience-form">

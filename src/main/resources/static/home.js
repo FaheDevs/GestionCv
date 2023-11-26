@@ -20,44 +20,9 @@ export const Home=  Vue.component('home', {
             </li>
         </ul>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Post ID</th>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Body</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in items" :key="item.id">
-                    <th scope="row">{{ item.postId }}</th>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.body }}</td>
-                </tr>
-            </tbody>
-        </table>
+       
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(currentPage - 1)">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item" v-for="page in Math.ceil(totalItems / perPage)" :key="page" :class="{ active: currentPage === page }">
-                    <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-                </li>
-                <li class="page-item" :class="{ disabled: currentPage === Math.ceil(totalItems / perPage) }">
-                    <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(currentPage + 1)">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+       
     </div>
 </div>
   `,

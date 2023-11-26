@@ -1,6 +1,7 @@
 import {ExperienceList} from "./experienceList.js";
 import {PersonDetails} from "./personDetails.js";
 import {AddCv} from "./addCv.js";
+import {logout} from "./utils/apiCalls.js";
 
 export const Dashboard = Vue.component('dashboard', {
     props: ['dashp'],
@@ -47,7 +48,7 @@ export const Dashboard = Vue.component('dashboard', {
                                               </a>
                                             </li>
                                             <li class="nav-item">
-                                              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                              <a class="nav-link d-flex align-items-center gap-2" href="#/addPerson">
                                                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                                                 add Person
                                               </a>
@@ -58,7 +59,7 @@ export const Dashboard = Vue.component('dashboard', {
                                 
                                           <ul class="nav flex-column mb-auto">
                                             <li class="nav-item">
-                                              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                              <a type="button" @click="performLogout" class="nav-link d-flex align-items-center gap-2">
                                                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
                                                 Sign out
                                               </a>
@@ -127,6 +128,11 @@ export const Dashboard = Vue.component('dashboard', {
             this.$emit('reload-person-details', isExperienceAddDone);
             console.log('is Experience added / updated / Deleted done:', isExperienceAddDone);
         },
+        async performLogout() {
+            await logout();
+            this.$emit('logged-out', false);
+            window.location.href='#/'
+        }
     },
 });
 

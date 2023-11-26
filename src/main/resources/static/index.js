@@ -2,6 +2,7 @@ import {Home} from "./home.js";
 import {login} from "./Signin.js";
 import {Dashboard} from "./dashboard.js";
 import {retrievePersonDetails} from "./utils/apiCalls.js";
+import {AddPerson} from "./AddPerson.js";
 
 const NotFound = { template: '<p>Page not found</p>' }
 
@@ -10,7 +11,8 @@ const About = { template: '<p>About page content</p>' }
 const routes = {
     '/': Home,
     '/login': login,
-    '/dashboard': Dashboard
+    '/dashboard': Dashboard,
+    '/addPerson': AddPerson
 }
 var index = new Vue({
     el: '#main',
@@ -51,6 +53,9 @@ var index = new Vue({
             this.reload = reload;
             this.personDetails = await retrievePersonDetails(this.personEmail);
             console.log(this.personDetails)
+        },
+        handleLogout(loggedOut){
+            this.isLoggedIn=loggedOut;
         }
     },
     computed: {

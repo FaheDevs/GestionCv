@@ -205,3 +205,62 @@ export async function deleteExperience(experienceID){
     }
 
 }
+
+export async function registerPerson(newPerson){
+    const apiUrl = `/api/v1/auth/register`;
+
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newPerson)
+        });
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to add new person ');
+    }
+
+}
+
+export async function logout(){
+    const apiUrl = `/api/v1/auth/logout`;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.status === 200) {
+            // No content, return null or some other indicator
+            return null;
+        }
+
+        if (!response.ok) {
+            // Handle error response
+            const errorData = await response.json();
+            throw new Error(`API error: ${errorData.message}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Handle fetch error
+        console.error('Fetch error:', error.message);
+        throw new Error('Failed to logout ');
+    }
+
+}

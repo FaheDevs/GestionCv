@@ -5,7 +5,7 @@ export const AddExperience =Vue.component('add-experience', {
     template: `
   <div class="experience-form" >
   <form @submit.prevent="addCard">
-    <h2>Add Card</h2>
+    <h2>Add Experience</h2>
     <div class="mb-3">
       <label for="title" class="form-label">Title:</label>
       <input v-model="newCard.title" type="text" class="form-control" id="title" placeholder="Enter title">
