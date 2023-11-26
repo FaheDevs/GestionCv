@@ -33,12 +33,6 @@ public class ApplicationConfig {
     return authProvider;
   }
 
-  // TODO check if its needed or not for now i think its not
-//  @Bean
-//  public AuditorAware<Integer> auditorAware() {
-//    return new ApplicationAuditAware();
-//  }
-
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager();

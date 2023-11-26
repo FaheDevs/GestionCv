@@ -1,5 +1,5 @@
 import {AddExperience} from "./AddExperience.js";
-import {deleteExperience, updateExperienceDetails} from "./utils/apiCalls.js";
+import {deleteExperience, updateExperienceDetails} from "../utils/apiCalls.js";
 
 export const ExperienceList = Vue.component('experience-list', {
     props: ['experiencep'],

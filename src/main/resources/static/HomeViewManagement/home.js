@@ -1,5 +1,5 @@
 import {Card} from "./Card.js";
-import {getAll} from "./utils/apiCalls.js";
+import {getAll} from "../utils/apiCalls.js";
 
 export const Home=  Vue.component('home', {
     props: ['value'],

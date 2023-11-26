@@ -1,10 +1,10 @@
-import {Home} from "./home.js";
-import {login} from "./Signin.js";
-import {Dashboard} from "./dashboard.js";
+import {Home} from "./HomeViewManagement/home.js";
+import {login} from "./HomeViewManagement/Signin.js";
+import {Dashboard} from "./AuthenticatedViewManagement/dashboard.js";
 import {retrievePersonDetails} from "./utils/apiCalls.js";
-import {AddPerson} from "./AddPerson.js";
-import {CvView} from "./CvView.js";
-import {Register} from "./register.js";
+import {AddPerson} from "./AuthenticatedViewManagement/AddPerson.js";
+import {CvView} from "./HomeViewManagement/CvView.js";
+import {Register} from "./HomeViewManagement/register.js";
 
 const NotFound = { template: '<p>Page not found</p>' }
 

@@ -1,4 +1,4 @@
-import {registerPerson} from "./utils/apiCalls.js";
+import {registerPerson} from "../utils/apiCalls.js";
 
 export const AddPerson =Vue.component('add-person', {
     props: ['person'],

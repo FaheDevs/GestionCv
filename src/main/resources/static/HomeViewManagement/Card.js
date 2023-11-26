@@ -7,10 +7,10 @@ export const Card =Vue.component('card', {
     {{value.firstName}} {{value.lastName}}
   </div>
   <div class="card-body">
-    <p class="card-title fs-6 fw-light fst-italic">{{calculateAge(value.birthDay)}}</p>
+    <p class="card-title fs-6 fw-light fst-italic"> age : {{calculateAge(value.birthDay)}}</p>
     <div v-for="(experience, index) in value.curriculumVitae.experiences.slice(0, 3)" :key="index">
           <p class="card-text fs-6">
-            - {{ experience.title }} : {{ experience.nature }} .
+            - {{ experience.title }} : {{ experience.nature }} 
           </p>
     </div>
     <p class="card-text fs-6">

@@ -1,4 +1,4 @@
-import {addExperience} from "./utils/apiCalls.js";
+import {addExperience} from "../utils/apiCalls.js";
 
 export const AddExperience =Vue.component('add-experience', {
     props: ['addexperiencep'],

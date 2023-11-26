@@ -1,7 +1,7 @@
 import {ExperienceList} from "./experienceList.js";
 import {PersonDetails} from "./personDetails.js";
 import {AddCv} from "./addCv.js";
-import {logout} from "./utils/apiCalls.js";
+import {logout} from "../utils/apiCalls.js";
 
 export const Dashboard = Vue.component('dashboard', {
     props: ['dashp'],

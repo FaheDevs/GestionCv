@@ -1,4 +1,4 @@
-import { createCV } from "./utils/apiCalls.js";
+import { createCV } from "../utils/apiCalls.js";
 
 export const AddCv = Vue.component('add-cv', {
     props: ['addcvp'],

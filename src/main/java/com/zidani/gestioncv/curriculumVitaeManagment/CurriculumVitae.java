@@ -1,6 +1,5 @@
 package com.zidani.gestioncv.curriculumVitaeManagment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zidani.gestioncv.experienceManagment.Experience;
 import com.zidani.gestioncv.personManagment.Person;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -10,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,10 +22,8 @@ public class CurriculumVitae {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-//    @JsonIgnore
     @OneToOne(mappedBy = "curriculumVitae")
     private Person person;
-//    @JsonIgnore
     @OneToMany(mappedBy = "curriculumVitae", fetch = FetchType.LAZY)
     private List<Experience> experiences;
     @Override

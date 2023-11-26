@@ -1,4 +1,4 @@
-import {updatePersonDetails} from "./utils/apiCalls.js";
+import {updatePersonDetails} from "../utils/apiCalls.js";
 
 export const PersonDetails = Vue.component('person-details', {
     props: ['person'],
