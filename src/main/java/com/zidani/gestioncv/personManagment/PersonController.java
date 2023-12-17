@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -113,5 +114,17 @@ public class PersonController {
     public ResponseEntity<PersonResponse> retrievePersonDetails(@RequestParam String email) {
         var person = personService.getPersonDetails(email);
         return ResponseEntity.ok(person);
+    }
+
+    @Operation(
+            summary = "get paginated persons list ",
+            description = "Endpoint to retrieve paginated persons list ."
+    )
+    @ApiResponse(responseCode = "200", description = "persons page with correct params retrieved successfully")
+    @GetMapping("/paginated-persons")
+    public Page<PersonResponse> getAllPersons(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return personService.getPersonsPagination(page, size);
     }
 }

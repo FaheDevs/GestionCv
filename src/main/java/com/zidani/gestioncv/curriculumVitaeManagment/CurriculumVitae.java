@@ -1,5 +1,6 @@
 package com.zidani.gestioncv.curriculumVitaeManagment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zidani.gestioncv.experienceManagment.Experience;
 import com.zidani.gestioncv.personManagment.Person;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -23,6 +24,7 @@ public class CurriculumVitae {
     @Column(name = "id")
     private Long id;
     @OneToOne(mappedBy = "curriculumVitae")
+    @JsonIgnore
     private Person person;
     @OneToMany(mappedBy = "curriculumVitae", fetch = FetchType.LAZY)
     private List<Experience> experiences;

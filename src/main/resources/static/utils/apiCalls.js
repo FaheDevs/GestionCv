@@ -290,3 +290,29 @@ export async function getAll() {
         // Handle the error (e.g., show an error message to the user)
     }
 }
+
+export async function getAllPaginated(page, size) {
+    try {
+
+        const response = await fetch(`/api/v1/management/person/paginated-persons?page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve persons list');
+        }
+
+        const Details = await response.json();
+        console.log('Persons list:', Details);
+        return Details;
+
+        // Process the personDetails as needed
+
+    } catch (error) {
+        console.error('Error retrieving person details:', error.message);
+        // Handle the error (e.g., show an error message to the user)
+    }
+}

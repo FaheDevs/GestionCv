@@ -33,7 +33,7 @@ export const ExperienceList = Vue.component('experience-list', {
     <div v-if="showModifyForm" class="experience-form">
       <br>
       <br>
-      <h2>Modify Card</h2>
+      <h2>Modify Experience</h2>
       <form @submit.prevent="saveModifiedCard">
       <div class="mb-3">
         <label for="modifiedTitle" class="form-label">Title:</label>
