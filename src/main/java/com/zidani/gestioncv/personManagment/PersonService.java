@@ -101,5 +101,19 @@ public class PersonService {
 
         return personsPage.map(personMapper::personToPersonResponse);
     }
+
+
+    public Page<Person> searchByFirstName(Pageable pageable, String firstName) {
+        return personRepository.findByFirstNameContainingIgnoreCase(pageable,firstName);
+    }
+
+    public Page<Person> searchByLastName(Pageable pageable, String lastName) {
+        return personRepository.findByLastNameContainingIgnoreCase(pageable,lastName);
+    }
+
+    public Page<Person> searchByFirstNameContainingAndLastName(Pageable pageable, String firstName, String lastName) {
+        return personRepository.findByFirstNameContainingAndLastNameContainingIgnoreCase(pageable,firstName, lastName);
+    }
+
 }
 

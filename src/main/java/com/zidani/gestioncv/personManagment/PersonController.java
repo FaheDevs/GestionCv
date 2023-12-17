@@ -1,15 +1,13 @@
 package com.zidani.gestioncv.personManagment;
 
-import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
-import com.zidani.gestioncv.personManagment.PersonRequest;
-import com.zidani.gestioncv.personManagment.PersonResponse;
-import com.zidani.gestioncv.personManagment.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -127,4 +125,43 @@ public class PersonController {
             @RequestParam(defaultValue = "10") int size) {
         return personService.getPersonsPagination(page, size);
     }
+
+
+    @GetMapping("/search/firstName")
+    public ResponseEntity<?> searchByNom(@RequestParam(name = "query") String query,
+                                         @RequestParam(defaultValue = "0") Integer page,
+                                         @RequestParam(defaultValue = "10") Integer size) {
+        if (query.length() < 3) {
+            return ResponseEntity.badRequest().body("Le terme de recherche doit avoir au moins trois lettres.");
+        }
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<?> candidats = personService.searchByFirstName(pageable,query);
+        return ResponseEntity.ok(candidats);
+    }
+
+    @GetMapping("/search/LastName")
+    public ResponseEntity<?> searchByPrenom(@RequestParam(name = "query") String query, @RequestParam(defaultValue = "0") Integer page,
+                                            @RequestParam(defaultValue = "10") Integer size) {
+        if (query.length() < 3) {
+            return ResponseEntity.badRequest().body("Le terme de recherche doit avoir au moins trois lettres.");
+        }
+        Pageable pageable = PageRequest.of(page, size);
+        Page<?> candidats = personService.searchByLastName(pageable,query);
+        return ResponseEntity.ok(candidats);
+    }
+
+    // Vous pouvez également ajouter une méthode pour rechercher par les deux (nom et prénom) si nécessaire
+    @GetMapping("/search/both")
+    public ResponseEntity<?> searchByNomAndPrenom(
+            @RequestParam(name = "nom") String nom,
+            @RequestParam(name = "prenom") String prenom,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<?> candidats = personService.searchByFirstNameContainingAndLastName(pageable,nom, prenom);
+        return ResponseEntity.ok(candidats);
+    }
+
 }
