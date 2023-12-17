@@ -25,7 +25,7 @@ export const Home = Vue.component('home', {
                     <li class="page-item" :class="{ disabled: currentPage === 0 }">
                         <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
                     </li>
-                    <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page - 1 === currentPage }">
+                    <li class="page-item" v-for="page in paginateRange()" :key="page" :class="{ active: page - 1 === currentPage }">
                         <a class="page-link" href="#" @click.prevent="changePage(page - 1)">{{ page }}</a>
                     </li>
                     <li class="page-item" :class="{ disabled: currentPage === totalPages - 1 }">
@@ -72,6 +72,20 @@ export const Home = Vue.component('home', {
         },
         onShowCv(data){
             this.$emit('load-cv-view-data', data);
+        },
+        paginateRange() {
+            const totalDisplayed = 6;
+            let start = this.currentPage - Math.floor(totalDisplayed / 2);
+            start = Math.max(start, 0);
+            let end = start + totalDisplayed;
+            end = Math.min(end, this.totalPages);
+
+            if (this.totalPages - end < totalDisplayed / 2) {
+                start = this.totalPages - totalDisplayed;
+            }
+            start = Math.max(start, 0);
+
+            return Array.from({ length: (end - start) }, (_, i) => start + i + 1);
         }
     },
     computed: {
