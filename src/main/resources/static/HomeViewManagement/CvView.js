@@ -3,60 +3,33 @@ export const CvView = Vue.component('cv-view', {
     props: ['view'],
     template: `
 <div class="cv-view-container">
-    <div class="row mb-3">
-      <div class="col">
-        <p class="section-header">Personal Information</p>
-        <hr class="section-divider">
-      </div>
+    <div class="header-section">
+      <p class="section-header">Personal Information</p>
+      <hr class="section-divider">
     </div>
-    <div class="row mb-3">
-      <div class="col">
-        <p class="personal-info"> NAME : {{ view.firstName }} {{ view.lastName }}</p>
-      </div>
+
+    <!-- Personal Information -->
+    <div class="personal-section">
+      <p class="personal-info">NAME: {{ view.firstName }} {{ view.lastName }}</p>
+      <p class="personal-info">AGE: {{ calculateAge(view.birthDay) }}</p>
+      <p class="personal-info">EMAIL: {{ view.email }}</p>
+      <p class="personal-info">WEBSITE: {{ view.webSite }}</p>
     </div>
-    <div class="row mb-3">
-      <div class="col">
-        AGE : <p class="personal-info fs-6 fw-light fst-italic">{{ calculateAge(view.birthDay) }}</p>
-      </div>
+
+    <!-- Experiences -->
+    <div class="header-section">
+      <p class="section-header">Experiences</p>
+      <hr class="section-divider">
     </div>
-    <div class="row mb-3">
-      <div class="col">
-        <p class="personal-info fs-6"> EMAIL : {{ view.email }}</p>
-      </div>
+
+    <div class="experience-section" v-for="(experience, index) in view.curriculumVitae.experiences" :key="index">
+      <p class="experience-info">¤ {{ experience.title }} : {{ experience.nature }}.</p>
+      <p class="experience-info">{{ experience.year }}.</p>
+      <p class="experience-info">DESCRIPTION: {{ experience.description }}.</p>
+      <p class="experience-info">WEBSITE: <a href="{{ experience.website }}">{{ experience.website }}</a></p>
+      <hr class="experience-divider">
     </div>
-    <div class="row mb-3">
-      <div class="col">
-        <p class="personal-info fs-6">WEBSITE : {{ view.webSite }}</p>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col">
-        <p class="section-header">Experiences</p>
-        <hr class="experience-divider">
-      </div>
-    </div>
-    <div v-for="(experience, index) in view.curriculumVitae.experiences" :key="index">
-      <div class="row mb-3">
-        <div class="col">
-        
-          <p class="experience-info fs-6">
-            ¤ {{ experience.title }} : {{ experience.nature }} .
-          </p>
-          <p class="experience-info fs-6">
-            {{ experience.year }}.
-          </p>
-          <p class="experience-info fs-6">
-            DESCRIPTION : 
-            {{ experience.description }}.
-          </p>
-          <p class="experience-info fs-6">
-            WEBSITE : <a>{{ experience.webSite }}.</a>
-          </p>
-          <hr class="experience-divider">
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 
        
   `,

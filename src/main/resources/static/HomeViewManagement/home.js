@@ -40,7 +40,7 @@ export const Home = Vue.component('home', {
                             <button class="btn btn-primary" @click="clearFields">Clear</button>
                          </div>
                             <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2" type="search" placeholder="filter by name" aria-label="Search" v-model="searchText" style="width: 600px;">
+                                <input class="form-control mr-sm-2" type="search" placeholder="find in the list" aria-label="Search" v-model="searchText" style="width: 600px;">
                                 <i class="bi bi-search"></i>
                             </form>
             </div>
@@ -54,6 +54,9 @@ export const Home = Vue.component('home', {
                 </ul>
             </div>
             <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+             <div class="mb-4">Total Pages: {{ totalPages }}</div> 
+             <br>
+             <br>
                 <ul class="pagination">
                     <li class="page-item" :class="{ disabled: currentPage === 0 }">
                         <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
@@ -82,6 +85,7 @@ export const Home = Vue.component('home', {
             inputField1: '', // Add three new properties for the input fields
             inputField2: '',
             inputField3: '',
+            activeSearchField: null,
         };
     },
     mounted() {
@@ -103,7 +107,25 @@ export const Home = Vue.component('home', {
         async changePage(page) {
             if (page >= 0 && page < this.totalPages) {
                 this.currentPage = page;
-                await this.fetchData(this.currentPage, this.pageSize);
+                let data;
+                switch(this.activeSearchField) {
+                    case 1:
+                        data = await getPaginationFirstName(this.currentPage, this.pageSize, this.inputField1);
+                        break;
+                    case 2:
+                        data = await getPaginationLastName(this.currentPage, this.pageSize, this.inputField2);
+                        break;
+                    case 3:
+                        data = await getPaginationExperience(this.currentPage, this.pageSize, this.inputField3);
+                        break;
+                    default:
+                        data = await this.fetchData(this.currentPage, this.pageSize);
+                        break;
+                }
+                if (data) {
+                    this.values = data.content;
+                    this.totalPages = data.totalPages;
+                }
             }
         },
         onShowCv(data){
@@ -130,6 +152,7 @@ export const Home = Vue.component('home', {
             // Add any additional logic you want to perform with these values
         },
         async searchField(fieldNumber) {
+            this.activeSearchField = fieldNumber;
             try {
                 let data;
                 switch(fieldNumber) {
@@ -154,7 +177,8 @@ export const Home = Vue.component('home', {
             this.inputField1 = '';
             this.inputField2 = '';
             this.inputField3 = '';
-            await this.fetchData(this.inputField1, this.inputField2, this.inputField3, this.currentPage, this.pageSize);
+            this.activeSearchField = null; // Reset the active search field
+            await this.fetchData(this.currentPage, this.pageSize);
         },
 
         validateInput(value, field) {

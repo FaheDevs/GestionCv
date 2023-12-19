@@ -42,20 +42,25 @@ public class GestionCvApplication  {
         return args -> {
 
             Faker faker = new Faker();
-            int size = 10;
+            int size = 50;
 
             for (int i = 0; i <size; i++) {
                 String firstName = faker.name().firstName();
                 String lastName = faker.name().lastName();
-                String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@mail.com";
+                String uniqueEmailPart = firstName.toLowerCase() + "." + lastName.toLowerCase() + i;
+                String email = uniqueEmailPart + "@mail.com";
                 String website = firstName.toLowerCase() + "." + lastName.toLowerCase() + ".com";
                 String password = faker.internet().password();
+
+                // Generate a random birth date
+                Date dateOfBirth = faker.date().birthday();
+                LocalDate birthDay = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                 RegisterRequest user = RegisterRequest.builder()
                         .firstname(firstName)
                         .lastname(lastName)
                         .email(email)
-                        .birthDay(LocalDate.of(2001, 12, 1))
+                        .birthDay(birthDay)
                         .webSite(website)
                         .password(password)
                         .role(USER)
@@ -113,19 +118,20 @@ public class GestionCvApplication  {
 
     private static ExperienceRequest createRandomExperience(Faker faker) {
         Random random = new Random();
-        List<String> experiences  = List.of("Work", "Internship", "Project", "Freelance");
+        List<String> experiences = List.of("Work", "Internship", "Project", "Freelance");
 
         int year = faker.random().nextInt(2010, 2023);
         String nature = experiences.get(random.nextInt(experiences.size()));
         String title = faker.job().title();
-        String description = nature;
-        String websiteUrl = faker.internet().url();
+
+        // Manually construct a website URL
+        String websiteUrl = "https://" + faker.internet().domainName();
 
         return ExperienceRequest.builder()
                 .year(year)
                 .nature(nature)
                 .title(title)
-                .description(description)
+                .description(nature)
                 .website(websiteUrl)
                 .build();
     }
