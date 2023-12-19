@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @Tag(name = "Experience", description = "Experience Management Api")
@@ -57,5 +59,14 @@ public class ExperienceController {
     ) {
         experienceService.deleteExperience(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/searchByExperienceTitle")
+    public Page<?> searchByExperienceTitle(
+            @RequestParam String title,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
+
+        return experienceService.searchByExperienceTitle(title, PageRequest.of(page, size));
     }
 }

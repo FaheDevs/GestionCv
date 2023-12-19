@@ -1,9 +1,12 @@
 package com.zidani.gestioncv.personManagment;
 
+import com.zidani.gestioncv.authenticationManagment.tokenManagement.AuthorizationService;
+import com.zidani.gestioncv.config.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +25,8 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:8080")
 public class PersonController {
     private final PersonService personService;
+    private final AuthorizationService authorizationService;
+    private final JwtService jwtService;
 
     @Operation(
             summary = "Add a new person",
@@ -87,9 +92,20 @@ public class PersonController {
     )
     @ApiResponse(responseCode = "200", description = "Person details updated successfully")
     @PutMapping("/update")
-    public ResponseEntity<PersonResponse> updatePersonDetails(@RequestBody PersonRequest updatedPerson) {
-        PersonResponse updatedResponse = personService.updatePersonDetails(updatedPerson);
-        return ResponseEntity.ok(updatedResponse);
+    public ResponseEntity<?> updatePersonDetails(HttpServletRequest httpServletRequest ,@RequestBody PersonRequest updatedPerson) {
+        String username = jwtService.extractUsernameAndBearerToken(httpServletRequest);
+
+        Long personId = personService.getPersonByUsername(username).get().getId();
+        if(authorizationService.hasPersonRight(username,personId)) {
+            PersonResponse updatedResponse = personService.updatePersonDetails(updatedPerson);
+            return ResponseEntity.ok(updatedResponse);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Vous n'êtes pas autorisé à modifier cette personne.");
+
+
+
+        }
     }
 
     @Operation(

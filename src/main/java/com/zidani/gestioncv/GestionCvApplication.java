@@ -8,6 +8,7 @@ import com.zidani.gestioncv.experienceManagment.ExperienceRequest;
 import com.zidani.gestioncv.experienceManagment.ExperienceService;
 import com.zidani.gestioncv.personManagment.Person;
 import com.zidani.gestioncv.personManagment.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +27,7 @@ import java.util.Random;
 import static com.zidani.gestioncv.personManagment.Role.*;
 
 @SpringBootApplication
+@Slf4j
 public class GestionCvApplication  {
 
     public static void main(String[] args) {
@@ -40,8 +42,9 @@ public class GestionCvApplication  {
         return args -> {
 
             Faker faker = new Faker();
+            int size = 10;
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i <size; i++) {
                 String firstName = faker.name().firstName();
                 String lastName = faker.name().lastName();
                 String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@mail.com";
@@ -57,7 +60,6 @@ public class GestionCvApplication  {
                         .password(password)
                         .role(USER)
                         .build();
-
                 // Register the user
                 authenticationService.register(user);
 
@@ -70,6 +72,20 @@ public class GestionCvApplication  {
                     experienceService.addExperience(cvId, experience);
                 }
             }
+
+            log.warn("{} personnes crées ! ",size);
+
+
+            /*============ USER / ROLE ===================*/
+            var user = RegisterRequest.builder()
+                    .firstname("USER")
+                    .lastname("USER")
+                    .email("user@mail.com")
+                    .password("password")
+                    .role(USER)
+                    .build();
+            System.out.println("user token: " + authenticationService.register(user).getAccessToken());
+
 
 
             /*============ ADMIN / MANAGEMENT ===================*/

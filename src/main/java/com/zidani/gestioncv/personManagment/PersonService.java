@@ -1,6 +1,7 @@
 package com.zidani.gestioncv.personManagment;
 
 import com.zidani.gestioncv.curriculumVitaeManagment.CurriculumVitae;
+import com.zidani.gestioncv.experienceManagment.Experience;
 import com.zidani.gestioncv.personManagment.Exceptions.PersonNotFoundException;
 import com.zidani.gestioncv.personManagment.mapper.PersonMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class PersonService {
                 .password(personRequest.password())
                 .birthDay(personRequest.birthDay())
                 .build();
+        log.info(String.valueOf(newPerson));
 
         personRepository.save(newPerson);
         log.info("Person {} {} is saved", newPerson.getFirstName(), newPerson.getLastName());
@@ -113,6 +116,25 @@ public class PersonService {
 
     public Page<Person> searchByFirstNameContainingAndLastName(Pageable pageable, String firstName, String lastName) {
         return personRepository.findByFirstNameContainingAndLastNameContainingIgnoreCase(pageable,firstName, lastName);
+    }
+    public Optional<Person> getPersonByUsername(String username){
+        return personRepository.findByEmail(username);
+    }
+
+
+    public boolean isOwner(String username, Long id) {
+        // Récupère la personne par ID
+        Optional<Person> person = personRepository.findById(id);
+
+        // Vérifie si l'Experience existe
+        if (person.isPresent()) {
+            String owner = person.get().getEmail();
+
+            return username.equals(owner);
+        }
+
+        // l'Experience n'existe pas, donc l'utilisateur ne peut pas être le propriétaire
+        return false;
     }
 
 }

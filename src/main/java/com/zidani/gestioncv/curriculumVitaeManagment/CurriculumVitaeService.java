@@ -2,12 +2,16 @@ package com.zidani.gestioncv.curriculumVitaeManagment;
 
 import com.zidani.gestioncv.curriculumVitaeManagment.Exceptions.CurriculumVitaeNotFoundException;
 import com.zidani.gestioncv.personManagment.Exceptions.PersonNotFoundException;
+import com.zidani.gestioncv.personManagment.Person;
 import com.zidani.gestioncv.personManagment.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 @Service
@@ -40,5 +44,24 @@ public class CurriculumVitaeService {
         log.info("Deleting Curriculum Vitae with id {} related to person with email: {}", id, cvToDelete.getPerson().getEmail());
         curriculumVitaeRepository.deleteById(id);
     }
+
+    public boolean isOwner(String username, Long cvId) {
+        // Récupère le CV par ID
+        Optional<CurriculumVitae> cv =curriculumVitaeRepository.findById(cvId) ;
+
+        // Vérifie si le CV existe
+        if (cv.isPresent()) {
+            // Récupère le propriétaire du CV
+            String cvOwner = cv.get().getPerson().getEmail(); // Supposons que 'getOwner()' renvoie le propriétaire du CV
+
+            // Compare le propriétaire du CV avec l'utilisateur extrait du token
+            return username.equals(cvOwner);
+        }
+
+        // Le CV n'existe pas, donc l'utilisateur ne peut pas être le propriétaire
+        return false;
+    }
+
+
 }
 
