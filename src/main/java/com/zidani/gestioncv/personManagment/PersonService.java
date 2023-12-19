@@ -105,17 +105,28 @@ public class PersonService {
         return personsPage.map(personMapper::personToPersonResponse);
     }
 
+    public Page<PersonResponse> getPersonsByFirstName(int page, int size,String firstName){
+        Pageable pageable = PageRequest.of(page, size);
 
-    public Page<Person> searchByFirstName(Pageable pageable, String firstName) {
-        return personRepository.findByFirstNameContainingIgnoreCase(pageable,firstName);
+        var personsPage = personRepository.findByFirstNameContainingIgnoreCase(pageable, firstName);
+
+        return personsPage.map(personMapper::personToPersonResponse);
     }
 
-    public Page<Person> searchByLastName(Pageable pageable, String lastName) {
-        return personRepository.findByLastNameContainingIgnoreCase(pageable,lastName);
+    public Page<PersonResponse> getPersonsByLastName(int page, int size,String lastName){
+        Pageable pageable = PageRequest.of(page, size);
+
+        var personsPage = personRepository.findByLastNameContainingIgnoreCase(pageable, lastName);
+
+        return personsPage.map(personMapper::personToPersonResponse);
     }
 
-    public Page<Person> searchByFirstNameContainingAndLastName(Pageable pageable, String firstName, String lastName) {
-        return personRepository.findByFirstNameContainingAndLastNameContainingIgnoreCase(pageable,firstName, lastName);
+    public Page<PersonResponse> getPersonsByExperience(int page, int size,String experience){
+        Pageable pageable = PageRequest.of(page, size);
+
+        var personsPage = personRepository.findByExperienceTitle(experience, pageable);
+
+        return personsPage.map(personMapper::personToPersonResponse);
     }
     public Optional<Person> getPersonByUsername(String username){
         return personRepository.findByEmail(username);
@@ -136,6 +147,7 @@ public class PersonService {
         // l'Experience n'existe pas, donc l'utilisateur ne peut pas être le propriétaire
         return false;
     }
+
 
 }
 

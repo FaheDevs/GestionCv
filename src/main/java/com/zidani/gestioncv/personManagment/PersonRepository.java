@@ -28,6 +28,13 @@ public interface PersonRepository extends  JpaRepository<Person, Long> {
     @Query("SELECT p FROM Person p WHERE LOWER(p.firstName) <> LOWER(:firstName)")
     Page<Person> findAllExcludeFirstName(@Param("firstName") String firstName, Pageable pageable);
 
-    Page<Person> findByLastNameContainingIgnoreCase(Pageable pageable,String Prenom);
+    Page<Person> findByLastNameContainingIgnoreCase(Pageable pageable,String lastName);
     Page<Person> findByFirstNameContainingAndLastNameContainingIgnoreCase(Pageable pageable,String Nom , String Prenom);
-    Page<Person> findByFirstNameContainingIgnoreCase(Pageable pageable,String Nom);}
+    Page<Person> findByFirstNameContainingIgnoreCase(Pageable pageable,String firstName);
+
+    @Query("SELECT DISTINCT p FROM Person p " +
+            "JOIN p.curriculumVitae cv " +
+            "JOIN cv.experiences e " +
+            "WHERE LOWER(e.title) LIKE LOWER(CONCAT('%', :experienceTitle, '%'))")
+    Page<Person> findByExperienceTitle(@Param("experienceTitle") String experienceTitle, Pageable pageable);
+}

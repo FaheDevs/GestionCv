@@ -9,8 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,10 +56,12 @@ public class PersonController {
             description = "Endpoint to search persons by their first name."
     )
     @ApiResponse(responseCode = "200", description = "Persons retrieved successfully")
-    @GetMapping("/search/firstName/{firstName}")
-    public ResponseEntity<List<PersonResponse>> searchPersonByFirstName(@PathVariable String firstName) {
-        List<PersonResponse> persons = personService.searchPersonByFirstName(firstName);
-        return ResponseEntity.ok(persons);
+    @GetMapping("/search/firstName")
+    public Page<PersonResponse>  searchPersonByFirstName(@RequestParam String firstName,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size
+    ) {
+        return personService.getPersonsByFirstName(page, size, firstName);
     }
 
     @Operation(
@@ -69,11 +69,27 @@ public class PersonController {
             description = "Endpoint to search persons by their last name."
     )
     @ApiResponse(responseCode = "200", description = "Persons retrieved successfully")
-    @GetMapping("/search/lastName/{lastName}")
-    public ResponseEntity<List<PersonResponse>> searchPersonByLastName(@PathVariable String lastName) {
-        List<PersonResponse> persons = personService.searchPersonByLastName(lastName);
-        return ResponseEntity.ok(persons);
+    @GetMapping("/search/lastName")
+    public Page<PersonResponse> searchPersonByLastName(@RequestParam String lastName,
+                                                       @RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size
+                                                                       ) {
+        return personService.getPersonsByLastName(page, size, lastName);
     }
+
+    @Operation(
+            summary = "Search persons by experience",
+            description = "Endpoint to search persons by their experience."
+    )
+    @ApiResponse(responseCode = "200", description = "Persons retrieved successfully")
+    @GetMapping("/search/experience")
+    public Page<PersonResponse> searchByExperience(@RequestParam String experience,
+                                                       @RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size
+    ) {
+        return personService.getPersonsByExperience(page, size, experience);
+    }
+
 
     @Operation(
             summary = "Delete a person by email",
@@ -140,44 +156,6 @@ public class PersonController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return personService.getPersonsPagination(page, size);
-    }
-
-
-    @GetMapping("/search/firstName")
-    public ResponseEntity<?> searchByNom(@RequestParam(name = "query") String query,
-                                         @RequestParam(defaultValue = "0") Integer page,
-                                         @RequestParam(defaultValue = "10") Integer size) {
-        if (query.length() < 3) {
-            return ResponseEntity.badRequest().body("Le terme de recherche doit avoir au moins trois lettres.");
-        }
-        Pageable pageable = PageRequest.of(page, size);
-
-        Page<?> candidats = personService.searchByFirstName(pageable,query);
-        return ResponseEntity.ok(candidats);
-    }
-
-    @GetMapping("/search/LastName")
-    public ResponseEntity<?> searchByPrenom(@RequestParam(name = "query") String query, @RequestParam(defaultValue = "0") Integer page,
-                                            @RequestParam(defaultValue = "10") Integer size) {
-        if (query.length() < 3) {
-            return ResponseEntity.badRequest().body("Le terme de recherche doit avoir au moins trois lettres.");
-        }
-        Pageable pageable = PageRequest.of(page, size);
-        Page<?> candidats = personService.searchByLastName(pageable,query);
-        return ResponseEntity.ok(candidats);
-    }
-
-    // Vous pouvez également ajouter une méthode pour rechercher par les deux (nom et prénom) si nécessaire
-    @GetMapping("/search/both")
-    public ResponseEntity<?> searchByNomAndPrenom(
-            @RequestParam(name = "nom") String nom,
-            @RequestParam(name = "prenom") String prenom,
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        Page<?> candidats = personService.searchByFirstNameContainingAndLastName(pageable,nom, prenom);
-        return ResponseEntity.ok(candidats);
     }
 
 }

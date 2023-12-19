@@ -316,3 +316,81 @@ export async function getAllPaginated(page, size) {
         // Handle the error (e.g., show an error message to the user)
     }
 }
+
+export async function getPaginationFirstName(page, size,firstName) {
+    try {
+
+        const response = await fetch(`/api/v1/management/person/search/firstName?firstName=${firstName}&page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve persons list');
+        }
+
+        const Details = await response.json();
+        console.log('Persons list:', Details);
+        return Details;
+
+        // Process the personDetails as needed
+
+    } catch (error) {
+        console.error('Error retrieving person details:', error.message);
+        // Handle the error (e.g., show an error message to the user)
+    }
+}
+
+export async function getPaginationLastName(page, size, lastName) {
+    try {
+
+        const response = await fetch(`/api/v1/management/person/search/lastName?lastName=${lastName}&page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve persons list');
+        }
+
+        const Details = await response.json();
+        console.log('Persons list:', Details);
+        return Details;
+
+        // Process the personDetails as needed
+
+    } catch (error) {
+        console.error('Error retrieving person details:', error.message);
+        // Handle the error (e.g., show an error message to the user)
+    }
+}
+
+export async function getPaginationExperience(page, size, experience) {
+    try {
+
+        const response = await fetch(`/api/v1/management/person/search/experience?experience=${experience}&page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve persons list');
+        }
+
+        const Details = await response.json();
+        console.log('Persons list:', Details);
+        return Details;
+
+        // Process the personDetails as needed
+
+    } catch (error) {
+        console.error('Error retrieving person details:', error.message);
+        // Handle the error (e.g., show an error message to the user)
+    }
+}
