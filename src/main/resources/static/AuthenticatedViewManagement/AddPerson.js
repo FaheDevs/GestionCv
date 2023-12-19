@@ -12,11 +12,11 @@ export const AddPerson =Vue.component('add-person', {
         <div class="row mb-3">
             <div class="col">
                 <label for="firstName" class="form-label">First Name:</label>
-                <input v-model="updatedPersonData.firstName"  class="form-control" id="firstName" placeholder="First name" aria-label="First name">
+                <input v-model="updatedPersonData.firstname"  class="form-control" id="firstname" placeholder="First name" aria-label="First name">
             </div>
             <div class="col">
                 <label for="lastName" class="form-label">Last Name:</label>
-                <input v-model="updatedPersonData.lastName"  class="form-control" id="lastName" placeholder="Last name" aria-label="Last name">
+                <input v-model="updatedPersonData.lastname"  class="form-control" id="lastName" placeholder="Last name" aria-label="Last name">
             </div>
         </div>
         <div class="row mb-3">
@@ -59,8 +59,8 @@ export const AddPerson =Vue.component('add-person', {
     data() {
         return {
             updatedPersonData : {
-                firstName:'',
-                lastName: '',
+                firstname:'',
+                lastname: '',
                 email: '',
                 password: '',
                 birthDay: 0,
