@@ -42,13 +42,21 @@ public class GestionCvApplication  {
         return args -> {
 
             Faker faker = new Faker();
+<<<<<<< Updated upstream
             int size = 50;
+=======
+            int size = 100000;
+>>>>>>> Stashed changes
 
             for (int i = 0; i <size; i++) {
                 String firstName = faker.name().firstName();
                 String lastName = faker.name().lastName();
+<<<<<<< Updated upstream
                 String uniqueEmailPart = firstName.toLowerCase() + "." + lastName.toLowerCase() + i;
                 String email = uniqueEmailPart + "@mail.com";
+=======
+                String email = firstName.toLowerCase() + "."+ String.valueOf(i)+ lastName.toLowerCase() + "@mail.com";
+>>>>>>> Stashed changes
                 String website = firstName.toLowerCase() + "." + lastName.toLowerCase() + ".com";
                 String password = faker.internet().password();
 

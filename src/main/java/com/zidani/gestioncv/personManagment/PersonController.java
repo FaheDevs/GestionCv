@@ -110,7 +110,7 @@ public class PersonController {
     @PutMapping("/update")
     public ResponseEntity<?> updatePersonDetails(HttpServletRequest httpServletRequest ,@RequestBody PersonRequest updatedPerson) {
         String username = jwtService.extractUsernameAndBearerToken(httpServletRequest);
-
+        System.out.println("EMAIL : " + username);
         Long personId = personService.getPersonByUsername(username).get().getId();
         if(authorizationService.hasPersonRight(username,personId)) {
             PersonResponse updatedResponse = personService.updatePersonDetails(updatedPerson);
@@ -118,6 +118,10 @@ public class PersonController {
         }
         else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Vous n'êtes pas autorisé à modifier cette personne.");
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         }
     }
 

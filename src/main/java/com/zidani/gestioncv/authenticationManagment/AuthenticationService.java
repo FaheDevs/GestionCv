@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
+
   public AuthenticationResponse register(RegisterRequest request) {
       var user = Person.builder()
               .firstName(request.getFirstname())
@@ -35,7 +37,7 @@ public class AuthenticationService {
               .email(request.getEmail())
               .webSite(request.getWebSite())
               .birthDay(request.getBirthDay())
-              .password(passwordEncoder.encode(request.getPassword()))
+              .password(new BCryptPasswordEncoder(4).encode(request.getPassword()))
               .role(request.getRole())
               .build();
       var savedUser = repository.save(user);

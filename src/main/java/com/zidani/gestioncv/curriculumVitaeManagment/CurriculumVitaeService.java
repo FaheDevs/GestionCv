@@ -34,7 +34,7 @@ public class CurriculumVitaeService {
         person.setCurriculumVitae(addedCv);
         personRepository.save(person);
 
-        log.info("Created Curriculum Vitae with id {} for person with email: {}", addedCv.getId(), email);
+    //    log.info("Created Curriculum Vitae with id {} for person with email: {}", addedCv.getId(), email);
         return addedCv.getId();
     }
 
