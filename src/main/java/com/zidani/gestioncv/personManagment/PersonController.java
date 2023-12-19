@@ -118,9 +118,6 @@ public class PersonController {
         }
         else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Vous n'êtes pas autorisé à modifier cette personne.");
-
-
-
         }
     }
 

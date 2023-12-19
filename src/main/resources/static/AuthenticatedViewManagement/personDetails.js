@@ -23,7 +23,7 @@ export const PersonDetails = Vue.component('person-details', {
         <div class="row mb-3">
             <div class="col">
                 <label for="email" class="form-label">Email:</label>
-                <input v-model="updatedPersonData.email" :readonly="isReadOnly" class="form-control" id="email" placeholder="Email" aria-label="Email">
+                <input v-model="updatedPersonData.email" readonly class="form-control" id="email" placeholder="Email" aria-label="Email">
             </div>
         </div>
         <div class="row mb-3">
